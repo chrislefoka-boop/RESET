@@ -1,57 +1,944 @@
-<!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07130f"><meta name="description" content="RESET 2.0 — pause, understand habits and build healthier routines.">
-<title>RESET 2.0</title><link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>RESET 3.0 | Discipline Over Comfort</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#07130f;--panel:#0d2018;--panel2:#10291f;--line:#1d4433;--green:#75e0a4;--pale:#b2f5ca;--text:#eff8f1;--muted:#9bb5a4}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0,#17432d,transparent 38%),var(--bg);color:var(--text);font-family:system-ui, sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:950px;margin:auto;padding:22px 16px 100px}
-.splash{position:fixed;inset:0;z-index:10;background:#07130f;display:grid;place-items:center;text-align:center;transition:.5s}.splash.hide{opacity:0;visibility:hidden}
-.mark{width:76px;height:76px;border:1px solid #4b9c70;border-radius:24px;display:grid;place-items:center;margin:auto auto 16px;background:linear-gradient(145deg,#173d2b,#0b1d14);color:var(--green);font-size:34px;font-weight:900}
-.splash h1{letter-spacing:.18em}.splash p{font-size:10px;letter-spacing:.25em}
-header{display:flex;justify-content:space-between;align-items:center;margin:5px 0 28px}.brand{display:flex;gap:10px;align-items:center}.brandmark{background:#173d2b;border:1px solid #397b54;color:var(--green);padding:10px 13px;border-radius:12px;font-weight:900}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em}.pill{border:1px solid var(--line);border-radius:30px;padding:8px 10px;color:var(--pale);font-size:10px}
-.eyebrow{color:var(--green);font-size:10px;letter-spacing:.2em;font-weight:800;text-transform:uppercase}h1{font-size:clamp(30px,7vw,48px);line-height:1.05;letter-spacing:-.04em;margin:12px 0}h2{font-size:23px;margin:0 0 8px}h3{font-size:16px;margin:0 0 8px}p{color:var(--muted);font-size:14px;line-height:1.65}
-.hero{padding:28px 22px;border:1px solid #28563e;border-radius:24px;background:linear-gradient(135deg,#143724,#0b1c14 72%)}.hero p{max-width:550px}
-.btn{border:0;border-radius:12px;padding:12px 15px;background:var(--green);color:#082015;font-weight:800;font-size:13px}.ghost{background:#10271b;color:var(--pale);border:1px solid var(--line)}.subtle{background:transparent;color:var(--muted);border:1px solid var(--line)}.actions{display:flex;gap:9px;flex-wrap:wrap}
-.section{margin:28px 2px 13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card,.panel{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:17px}.card{min-height:150px}.symbol{font-size:22px;margin-bottom:12px}.card p{font-size:12px}.card button{margin-top:10px}
-.screen{display:none}.screen.active{display:block}.back{margin-bottom:18px}.panel{margin-top:14px}.lesson{padding:13px 0;border-bottom:1px solid var(--line)}.lesson:last-child{border:0}
-.timer{font-size:58px;font-weight:800;text-align:center;color:var(--pale);margin:20px}.center{text-align:center}.field{display:grid;gap:7px;margin:14px 0}.field label{font-size:12px;color:var(--pale);font-weight:700}
-input,textarea{width:100%;background:#071710;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:12px}textarea{min-height:85px}.notice{font-size:11px;border-left:2px solid var(--green);padding:9px 11px;background:#10271b;color:var(--muted);margin-top:13px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#07130ff2;backdrop-filter:blur(15px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));z-index:5}.nav button{border:0;background:none;color:var(--muted);font-size:10px;display:grid;gap:4px;justify-items:center}.nav button span{font-size:18px}.nav button.active{color:var(--green)}
-footer{text-align:center;color:#789282;font-size:10px;margin-top:28px;letter-spacing:.08em}.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:#d5f9e2;color:#092015;padding:11px 15px;border-radius:11px;opacity:0;transition:.2s;z-index:8;font-size:12px}.toast.show{opacity:1}
-@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.hero{padding:38px}}@media(max-width:370px){.grid{grid-template-columns:1fr}.pill{display:none}}
-</style></head><body>
-<div class="splash" id="splash"><div><div class="mark">R</div><h1>RESET 2.0</h1><p>RECLAIM YOUR CONTROL</p></div></div>
-<main class="app"><header><div class="brand"><div class="brandmark">R</div><div><b>RESET 2.0</b><small>YOUR PERSONAL RESET SPACE</small></div></div><div class="pill">PRIVATE · ON THIS DEVICE</div></header>
-<section class="screen active" id="home"><div class="hero"><div class="eyebrow">A fresh start begins here</div><h1>Small steps.<br><span style="color:var(--green)">Real change.</span></h1><p>You don't have to fix everything today. Pause, understand your patterns, and choose one useful next step.</p><div class="actions"><button class="btn" onclick="show('pause')">Take a pause</button><button class="btn ghost" onclick="show('learn')">Explore the guide</button></div></div>
-<div class="section"><div class="eyebrow">Your toolkit</div><h2>Where do you want to start?</h2></div><div class="grid">
-<div class="card"><div class="symbol">◉</div><h3>Understand</h3><p>Notice triggers and patterns without judging yourself.</p><button class="btn ghost" onclick="show('understand')">Explore</button></div>
-<div class="card"><div class="symbol">Ⅱ</div><h3>Pause the urge</h3><p>Use a short pause before choosing what to do next.</p><button class="btn ghost" onclick="show('pause')">Start</button></div>
-<div class="card"><div class="symbol">✦</div><h3>Learn</h3><p>Practical lessons for healthier routines.</p><button class="btn ghost" onclick="show('learn')">Read lessons</button></div>
-<div class="card"><div class="symbol">⌁</div><h3>My plan</h3><p>Write down your reasons and next steps.</p><button class="btn ghost" onclick="show('plan')">My plan</button></div></div>
-<div class="panel"><div class="eyebrow">A thought to keep</div><h3 style="margin-top:8px">Progress is built by what you practise next.</h3><p>A difficult moment does not erase the effort you've already made.</p></div></section>
-<section class="screen" id="understand"><button class="btn subtle back" onclick="show('home')">← Home</button><div class="eyebrow">01 / Awareness</div><h1>Understand your patterns.</h1><p>Habits can connect to situations, feelings, and routines. Noticing the pattern gives you more choices.</p><div class="panel"><h3>Common triggers</h3><div class="lesson"><b>Stress</b><p>Some habits become a quick way to escape uncomfortable feelings.</p></div><div class="lesson"><b>Boredom</b><p>Unstructured time can make automatic routines easier to repeat.</p></div><div class="lesson"><b>Loneliness</b><p>Connection and support can make difficult moments easier.</p></div><div class="lesson"><b>Environment</b><p>Places, devices, and repeated cues can prompt familiar behaviour.</p></div></div><div class="panel"><h3>Reflect privately</h3><p>What usually happens just before the habit you want to change?</p><div class="field"><textarea id="triggerNote" placeholder="Write your reflection..."></textarea></div><button class="btn" onclick="save('triggerNote')">Save reflection</button></div></section>
-<section class="screen" id="pause"><button class="btn subtle back" onclick="show('home')">← Home</button><div class="eyebrow">02 / Make space</div><h1>Pause. Breathe. Choose.</h1><p>An urge can feel intense, but you can give yourself time before deciding what to do next.</p><div class="panel center"><div class="eyebrow">Five-minute reset</div><div class="timer" id="timer">05:00</div><button class="btn" id="toggle" onclick="toggleTimer()">Start</button> <button class="btn ghost" onclick="resetTimer()">Reset</button><div class="notice">Try changing rooms, getting water, stretching gently, or messaging someone you trust.</div></div><div class="panel"><h3>Choose one small action</h3><p>• Step away for a moment.<br>• Put your phone down and notice your surroundings.<br>• Do a simple task that uses your attention.<br>• Talk to a trusted person.</p></div></section>
-<section class="screen" id="learn"><button class="btn subtle back" onclick="show('home')">← Home</button><div class="eyebrow">03 / Learn</div><h1>Build useful skills.</h1><p>Short lessons to help you understand change.</p><div class="panel"><div class="lesson"><h3>01 — How habits work</h3><p>A cue can lead to a repeated action. Changing the cue or choosing a different response can reshape a routine.</p></div><div class="lesson"><h3>02 — Difficult moments</h3><p>Name what you are feeling without judgement, then choose one safe activity while the feeling changes.</p></div><div class="lesson"><h3>03 — Design your environment</h3><p>Make helpful choices easier to reach. Reduce reminders of routines you are trying to change.</p></div><div class="lesson"><h3>04 — Respond to setbacks</h3><p>A setback is information, not a definition of who you are. Review what happened and choose a next step.</p></div></div></section>
-<section class="screen" id="plan"><button class="btn subtle back" onclick="show('home')">← Home</button><div class="eyebrow">04 / Your direction</div><h1>Your personal plan.</h1><p>Keep your plan realistic. You can change it whenever you need to.</p><div class="panel"><div class="field"><label for="reason">Why does this change matter to me?</label><textarea id="reason" placeholder="My reason..."></textarea></div><div class="field"><label for="nextStep">One helpful step I can take</label><textarea id="nextStep" placeholder="My next step..."></textarea></div><div class="field"><label for="support">Someone I can talk to (optional)</label><input id="support" placeholder="A trusted person"></div><button class="btn" onclick="savePlan()">Save my plan</button> <button class="btn ghost" onclick="loadPlan()">Load saved plan</button></div><div class="notice">Your notes stay in this browser on this device. Clearing browser data may erase them.</div></section>
-<section class="screen" id="settings"><button class="btn subtle back" onclick="show('home')">← Home</button><div class="eyebrow">05 / Preferences</div><h1>Settings.</h1><div class="panel"><h3>Privacy</h3><p>Your reflections and plan are stored locally in this browser. This version does not send your notes to a server.</p><button class="btn ghost" onclick="exportNotes()">Export my notes</button> <button class="btn subtle" onclick="clearNotes()">Delete saved notes</button></div><div class="panel"><h3>About RESET 2.0</h3><p>A practical self-reflection and habit-support tool. It does not automatically block websites, monitor activity, or send emergency alerts. It is not a replacement for professional support.</p><p style="color:var(--green);font-weight:800;letter-spacing:.12em">CREATED BY KC.LEFOKA</p><p>© 2026 KC.LEFOKA. All rights reserved.</p></div></section>
-<footer>RESET 2.0 · KC.LEFOKA · BUILT FOR A FRESH START</footer></main>
-<nav class="nav"><button class="active" data-id="home" onclick="show('home')"><span>⌂</span>Home</button><button data-id="understand" onclick="show('understand')"><span>◉</span>Understand</button><button data-id="pause" onclick="show('pause')"><span>Ⅱ</span>Pause</button><button data-id="learn" onclick="show('learn')"><span>✦</span>Learn</button><button data-id="plan" onclick="show('plan')"><span>⌁</span>Plan</button><button data-id="settings" onclick="show('settings')"><span>⚙</span>Settings</button></nav><div class="toast" id="toast">Saved</div>
+:root{
+ --bg:#090909;--panel:#151515;--panel2:#202020;
+ --red:#f12b3d;--redDark:#7e1421;--white:#f5f5f5;
+ --muted:#999;--line:#303030;--green:#39c982;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);
+ font-family:Arial,Helvetica,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+header{
+ position:sticky;top:0;z-index:20;background:#0c0c0cf5;
+ border-bottom:1px solid var(--line);padding:14px 5%;
+ display:flex;align-items:center;justify-content:space-between;
+ backdrop-filter:blur(12px)
+}
+.brand{font-size:24px;font-weight:900;letter-spacing:3px}
+.brand span{color:var(--red)}
+.status{font-size:11px;color:var(--muted)}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px 5%;
+ background:#111;border-bottom:1px solid var(--line);
+ scrollbar-width:none}
+nav button{flex-shrink:0;background:transparent;color:#aaa;
+ border:1px solid var(--line);border-radius:30px;padding:10px 14px;
+ font-size:11px}
+nav button.active,nav button:hover{background:var(--red);
+ border-color:var(--red);color:white}
+main{max-width:1050px;margin:auto;padding:22px 5% 80px}
+.page{display:none;animation:fade .2s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}
+ to{opacity:1;transform:translateY(0)}}
+.hero{
+ min-height:285px;border:1px solid #501b24;border-radius:22px;
+ padding:28px;display:flex;flex-direction:column;justify-content:center;
+ background:radial-gradient(ellipse at 90% 5%,#671522 0,transparent 45%),
+ linear-gradient(135deg,#1a1012,#090909 75%)
+}
+.eyebrow{color:var(--red);font-size:11px;letter-spacing:3px;
+ font-weight:bold;text-transform:uppercase}
+h1{font-size:clamp(37px,8vw,68px);line-height:.98;margin:15px 0}
+h1 span{color:var(--red)}
+h2{font-size:25px;margin:12px 0}
+h3{font-size:17px;margin:8px 0}
+p{color:#bbb;line-height:1.6}
+.small{font-size:12px;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);
+ border-radius:17px;padding:18px;margin:13px 0}
+.redline{border-left:3px solid var(--red)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;margin:16px 0}
+.stat{font-size:29px;font-weight:900;margin-top:8px}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:1px}
+.btn{border:0;border-radius:10px;padding:12px 16px;
+ background:var(--red);color:white;font-weight:bold}
+.btn:hover{background:#ff4051}
+.btn.secondary{background:#222;border:1px solid #444;color:#eee}
+.btn.danger{background:#57151e}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+input,textarea{width:100%;padding:13px;margin:7px 0;
+ border:1px solid #333;border-radius:10px;background:#101010;
+ color:white;outline:none}
+input:focus,textarea:focus{border-color:var(--red)}
+textarea{min-height:115px;resize:vertical}
+label{font-size:12px;color:#bbb}
+.notice{border:1px solid #54202a;background:#1b1013;
+ border-radius:12px;padding:13px;color:#ddd;font-size:13px;line-height:1.6}
+.quote{font-size:20px;font-weight:bold;line-height:1.4;
+ border-left:3px solid var(--red);padding-left:15px}
+.progress{height:8px;background:#292929;border-radius:20px;overflow:hidden}
+.progress div{height:100%;background:var(--red);width:0%}
+.calendar-head{display:flex;align-items:center;justify-content:space-between}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:15px}
+.dayname{text-align:center;color:#777;font-size:10px;padding:7px 0}
+.day{min-height:45px;border:1px solid #292929;background:#121212;
+ color:#ddd;border-radius:8px;display:flex;align-items:center;
+ justify-content:center;flex-direction:column;font-size:13px}
+.day.today{border-color:var(--red)}
+.day.done{background:#173326;border-color:#286746;color:#6be0a4}
+.day.event{box-shadow:inset 0 -3px var(--red)}
+.day.empty{visibility:hidden}
+.day small{font-size:8px}
+.lesson{border:1px solid var(--line);border-radius:13px;
+ padding:15px;margin:10px 0;background:#111}
+.lesson p{font-size:13px}
+.event-tag{display:inline-block;background:#351219;color:#ff9aa4;
+ border:1px solid #68202d;border-radius:20px;padding:6px 10px;font-size:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{padding:12px 7px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-size:10px}
+.rank{color:var(--red);font-weight:bold}
+.hidden{display:none!important}
+footer{text-align:center;color:#666;font-size:11px;
+ padding:28px;border-top:1px solid var(--line)}
+footer strong{color:var(--red);letter-spacing:2px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+ z-index:99;background:#eee;color:#111;padding:12px 18px;
+ border-radius:10px;font-size:13px;display:none;max-width:90%}
+@media(max-width:650px){
+ header{padding:13px 4%}nav{padding:10px 4%}
+ main{padding:17px 4% 65px}.card{padding:15px}
+ .hero{padding:22px;min-height:250px}.day{min-height:40px}
+}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<header>
+ <div class="brand">RE<span>SET</span></div>
+ <div style="display:flex;align-items:center;gap:10px">
+  <span class="status" id="connectionStatus">Starting…</span>
+  <button class="btn secondary" onclick="showPage('account')">ACCOUNT</button>
+ </div>
+</header>
+
+<nav>
+ <button class="active" data-page="home" onclick="showPage('home')">HOME</button>
+ <button data-page="room" onclick="showPage('room')">RESET ROOM</button>
+ <button data-page="calendar" onclick="showPage('calendar')">LOCK-IN</button>
+ <button data-page="learn" onclick="showPage('learn')">LEARNING</button>
+ <button data-page="events" onclick="showPage('events')">EVENTS</button>
+ <button data-page="leaderboard" onclick="showPage('leaderboard')">LEADERBOARD</button>
+ <button data-page="journal" onclick="showPage('journal')">JOURNAL</button>
+ <button data-page="account" onclick="showPage('account')">PROFILE</button>
+</nav>
+
+<main>
+
+<section class="page active" id="home">
+ <div class="hero">
+  <div class="eyebrow">Your next chapter starts here</div>
+  <h1>DISCIPLINE<br>OVER <span>COMFORT.</span></h1>
+  <p>Stop waiting for the perfect moment. Your next decision is where change begins.</p>
+  <div class="actions">
+   <button class="btn" onclick="showPage('calendar')">ENTER LOCK-IN</button>
+   <button class="btn secondary" onclick="showPage('learn')">UNDERSTAND YOUR HABITS</button>
+  </div>
+ </div>
+
+ <div class="card redline">
+  <div class="eyebrow">Today's message</div>
+  <div class="quote" id="dailyMessage">Your future is built by the decisions you make today.</div>
+  <p class="small">Choose one useful action and follow through.</p>
+ </div>
+
+ <div class="grid">
+  <div class="card">
+   <div class="stat-label">COMPLETED MISSIONS</div>
+   <div class="stat" id="homeCompleted">0</div>
+  </div>
+  <div class="card">
+   <div class="stat-label">TOTAL POINTS</div>
+   <div class="stat" id="homePoints">0</div>
+  </div>
+ </div>
+
+ <div class="card">
+  <div class="eyebrow">Seasonal event</div>
+  <h2 id="homeEventTitle">Loading…</h2>
+  <p id="homeEventText"></p>
+  <button class="btn secondary" onclick="showPage('events')">VIEW EVENTS</button>
+ </div>
+
+ <div class="card">
+  <h3>Today's intention</h3>
+  <p>Choose one constructive action you can complete today.</p>
+  <input id="intentionInput" maxlength="120" placeholder="My intention for today…">
+  <button class="btn" onclick="saveIntention()">SAVE INTENTION</button>
+  <p class="small" id="intentionStatus"></p>
+  <button class="btn secondary" id="completeTodayBtn"
+   onclick="completeChallenge('daily_intention')">MARK TODAY COMPLETE</button>
+ </div>
+</section>
+
+<section class="page" id="room">
+ <div class="eyebrow">Pause. Think. Choose.</div>
+ <h2>THE RESET ROOM</h2>
+ <p>This space is for moments when your habits, attention or emotions feel difficult to manage. You can acknowledge a difficult moment without judging yourself.</p>
+ <div class="card redline">
+  <h3>When you're struggling</h3>
+  <p><strong>1. Name the situation.</strong><br>What is happening? What happened just before this moment?</p>
+  <p><strong>2. Change your environment.</strong><br>Move to a different activity or a shared space. Put away distractions.</p>
+  <p><strong>3. Choose a replacement.</strong><br>Read, draw, learn, walk, or speak with someone you trust.</p>
+  <p><strong>4. Review your decision.</strong><br>What could make the next difficult moment easier?</p>
+ </div>
+ <div class="card">
+  <h3>Quick reflection</h3>
+  <label>What is making today difficult?</label>
+  <textarea id="roomFeeling" placeholder="Write a few words."></textarea>
+  <label>What is one constructive action you can take?</label>
+  <input id="roomAction" placeholder="My next action…">
+  <button class="btn" onclick="saveRoomReflection()">SAVE REFLECTION</button>
+ </div>
+ <div class="notice">RESET is an educational support tool, not a medical service. If you feel overwhelmed or persistently low, speak with a trusted adult, school counsellor or qualified health professional.</div>
+</section>
+
+<section class="page" id="calendar">
+ <div class="eyebrow">Consistency is built one day at a time</div>
+ <h2>THE LOCK-IN CALENDAR</h2>
+ <p>Track your missions. A missed day does not erase the work you have already done.</p>
+ <div class="card">
+  <div class="calendar-head">
+   <button class="btn secondary" onclick="changeMonth(-1)">‹</button>
+   <h3 id="calendarTitle">Month</h3>
+   <button class="btn secondary" onclick="changeMonth(1)">›</button>
+  </div>
+  <div class="calendar" id="calendarGrid"></div>
+  <p class="small">Green = completed · Red outline = today · Red underline = event date</p>
+ </div>
+ <div class="card">
+  <h3 id="selectedDateTitle">Select a date</h3>
+  <p id="selectedDateInfo">Choose a day to view its progress.</p>
+  <button class="btn" onclick="completeChallenge('daily_intention')">COMPLETE TODAY'S MISSION</button>
+ </div>
+ <div class="card">
+  <h3>Your recorded progress</h3>
+  <div class="progress"><div id="progressBar"></div></div>
+  <p class="small" id="progressText">Complete missions to build your record.</p>
+ </div>
+</section>
+
+<section class="page" id="learn">
+ <div class="eyebrow">Knowledge before assumptions</div>
+ <h2>LEARNING CENTRE</h2>
+ <p>Understand habits, triggers, emotions and healthier routines. These lessons are educational, not diagnoses.</p>
+
+ <div id="lessons"></div>
+ <div class="notice">These are introductory learning summaries, not a researched clinical guide. We'll expand this library with properly sourced health information before describing it as a verified research library.</div>
+</section>
+
+<section class="page" id="events">
+ <div class="eyebrow">The calendar changes. Your commitment continues.</div>
+ <h2>SEASONAL EVENTS</h2>
+ <p>RESET recognises South African observances and seasonal dates automatically. Events are optional opportunities to practise constructive habits.</p>
+ <div class="card redline">
+  <span class="event-tag" id="eventStatus">CURRENT EVENT</span>
+  <h2 id="eventTitle">Loading…</h2>
+  <p id="eventDescription"></p>
+  <p class="small" id="eventDates"></p>
+  <button class="btn" onclick="completeChallenge('daily_intention')">COMPLETE TODAY'S MISSION</button>
+ </div>
+ <div class="card">
+  <h3>Event calendar</h3>
+  <div id="eventList"></div>
+ </div>
+ <div class="notice">NNN is a voluntary November discipline and habit-awareness challenge. Participation is not a measure of anyone's worth, health or character.</div>
+</section>
+
+<section class="page" id="leaderboard">
+ <div class="eyebrow">Progress, not popularity</div>
+ <h2>GLOBAL LEADERBOARD</h2>
+ <p>Only members who opt in appear. The board displays usernames and challenge points, never emails or private reflections.</p>
+ <div class="card">
+  <button class="btn" onclick="loadLeaderboard()">REFRESH RANKINGS</button>
+  <div id="leaderboardContent"><p class="small">Log in to view rankings.</p></div>
+ </div>
+ <div class="notice">Your profile is private by default. You decide whether to appear publicly.</div>
+</section>
+
+<section class="page" id="journal">
+ <div class="eyebrow">Private space</div>
+ <h2>PERSONAL JOURNAL</h2>
+ <p>Your journal is saved in this browser on this device. It is not uploaded to Supabase or shown on the leaderboard.</p>
+ <div class="card">
+  <label>Today's reflection</label>
+  <textarea id="journalInput" placeholder="What did you learn about yourself today?"></textarea>
+  <button class="btn" onclick="saveJournal()">SAVE PRIVATELY</button>
+  <p class="small" id="journalStatus"></p>
+ </div>
+ <div class="card">
+  <h3>Previous entries</h3>
+  <div id="journalEntries"></div>
+ </div>
+</section>
+
+<section class="page" id="account">
+ <div class="eyebrow">Your account</div>
+ <h2>PROFILE & ACCESS</h2>
+ <div class="card" id="authPanel">
+  <div class="actions">
+   <button class="btn" onclick="setAuthMode('signup')">CREATE ACCOUNT</button>
+   <button class="btn secondary" onclick="setAuthMode('login')">LOG IN</button>
+  </div>
+  <h3 id="authTitle">Create your RESET account</h3>
+  <div id="usernameField">
+   <label>Username (3–20 characters)</label>
+   <input id="usernameInput" maxlength="20" placeholder="Choose a username">
+  </div>
+  <label>Email address</label>
+  <input id="emailInput" type="email" autocomplete="email" placeholder="you@example.com">
+  <label>Password (at least 8 characters)</label>
+  <input id="passwordInput" type="password" autocomplete="current-password" placeholder="Your password">
+  <button class="btn" id="authSubmit" onclick="submitAuth()">CREATE ACCOUNT</button>
+  <button class="btn secondary" onclick="resetPassword()">FORGOT PASSWORD?</button>
+  <p class="small" id="authMessage">Email confirmation may be required.</p>
+ </div>
+
+ <div class="card hidden" id="profilePanel">
+  <div class="eyebrow">Signed in</div>
+  <h3 id="profileName">RESET Member</h3>
+  <p id="profileEmail" class="small"></p>
+  <label>Your public username</label>
+  <input id="profileUsername" maxlength="20">
+  <button class="btn secondary" onclick="updateUsername()">SAVE USERNAME</button>
+  <hr style="border-color:#292929;margin:20px 0">
+  <h3>Leaderboard privacy</h3>
+  <p class="small">Your profile stays private until you choose otherwise.</p>
+  <label style="display:flex;align-items:center;gap:10px">
+   <input type="checkbox" id="publicToggle" style="width:auto">
+   Allow my username and challenge points on the leaderboard
+  </label>
+  <button class="btn" onclick="savePrivacy()">SAVE PRIVACY SETTING</button>
+  <div class="actions">
+   <button class="btn danger" onclick="logout()">LOG OUT</button>
+  </div>
+ </div>
+</section>
+
+</main>
+
+<footer>
+ RESET 3.0 · DISCIPLINE OVER COMFORT<br><br>
+ CREATED BY <strong>KC.LEFOKA</strong><br><br>
+ Progress is built through choices, not perfection.
+</footer>
+
+<div id="toast"></div>
+
 <script>
-const ids=['home','understand','pause','learn','plan','settings'];
-function show(id){ids.forEach(x=>document.getElementById(x).classList.toggle('active',x===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.id===id));window.scrollTo({top:0,behavior:'smooth'});}
-function notify(s){let t=document.getElementById('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1700);}
-function save(id){localStorage.setItem('reset_'+id,document.getElementById(id).value);notify('Reflection saved');}
-function savePlan(){['reason','nextStep','support'].forEach(id=>localStorage.setItem('reset_'+id,document.getElementById(id).value));notify('Your plan is saved');}
-function loadPlan(){['reason','nextStep','support'].forEach(id=>document.getElementById(id).value=localStorage.getItem('reset_'+id)||'');}
-let secs=300,clock=null;
-function paint(){document.getElementById('timer').textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');}
-function toggleTimer(){let b=document.getElementById('toggle');if(clock){clearInterval(clock);clock=null;b.textContent='Resume';return;}b.textContent='Pause';clock=setInterval(()=>{secs--;paint();if(secs<=0){clearInterval(clock);clock=null;b.textContent='Start';notify('Pause complete. Choose your next step.');}},1000);}
-function resetTimer(){clearInterval(clock);clock=null;secs=300;paint();document.getElementById('toggle').textContent='Start';}
-function exportNotes(){let d={};['reason','nextStep','support','triggerNote'].forEach(k=>d[k]=localStorage.getItem('reset_'+k)||'');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:'application/json'}));a.download='reset-notes.json';a.click();URL.revokeObjectURL(a.href);}
-function clearNotes(){if(confirm('Delete all RESET notes saved in this browser?')){Object.keys(localStorage).filter(k=>k.startsWith('reset_')).forEach(k=>localStorage.removeItem(k));['reason','nextStep','support','triggerNote'].forEach(k=>{let e=document.getElementById(k);if(e)e.value='';});notify('Saved notes deleted');}}
-document.getElementById('triggerNote').value=localStorage.getItem('reset_triggerNote')||'';loadPlan();
-setTimeout(()=>document.getElementById('splash').classList.add('hide'),1100);
-if('serviceWorker' in navigator && location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-</script></body></html>
+// ========================================
+// RESET 3.0 — SUPABASE CONFIGURATION
+// ========================================
+// Uses the project's publishable key.
+// NEVER place a database password or service-role key here.
+const SUPABASE_URL="https://btlrkkqivnictpmaijoe.supabase.co";
+const SUPABASE_KEY="sb_publishable_srmUvFJ-Ag3O5QenGzO2fg_lgJFFQcr";
+
+let db=null;
+let currentUser=null;
+let currentProfile=null;
+let completions=[];
+let challengePoints={};
+let calendarDate=new Date();
+let authMode="signup";
+
+const messages=[
+ "Your next decision matters more than your last mistake.",
+ "Stop negotiating with the goal you said mattered.",
+ "Discipline is built through repeated decisions.",
+ "Do the useful thing, even when it is not exciting.",
+ "Your past can teach you. It does not have to control you.",
+ "You don't need a perfect day. You need a responsible next step.",
+ "Excuses do not create progress. Actions do."
+];
+
+const lessonData=[
+ ["daily_intention","Understanding habits",
+  "Habits become more automatic through repetition and context. Notice the situation, the behaviour and what happens afterwards. Understanding patterns is more useful than guessing."],
+ ["learning_lesson_1","Understanding urges",
+  "An urge is an experience, not an instruction. You can notice it, pause and choose an action that fits your values. Changing your surroundings can create room for a more considered choice."],
+ ["learning_lesson_2","Emotional wellbeing",
+  "Stress, boredom, loneliness and low mood can influence behaviour. They are signals worth understanding, not personal failures. Supportive relationships and professional help can contribute to wellbeing."],
+ ["learning_lesson_3","Digital boundaries",
+  "Your digital environment influences your attention. Consider notification settings, device-free times and keeping devices away during focused activities."],
+ ["learning_lesson_4","Replacement routines",
+  "When you change a routine, plan a useful alternative. Reading, sport, music, creative work, learning or talking with someone can give your attention a different direction."],
+ ["learning_lesson_5","Healthy boundaries",
+  "Healthy boundaries help you decide what you spend time on and when you need support. They should protect wellbeing, not become a reason to shame yourself or others."],
+ ["learning_lesson_6","Finding support",
+  "You do not have to manage every challenge alone. A trusted family member, teacher, counsellor or healthcare professional can help you find appropriate support."]
+];
+
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;
+ el.style.display="block";
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>el.style.display="none",3000);
+}
+
+function todayKey(date=new Date()){
+ return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
+}
+
+function showPage(name){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.querySelectorAll("nav button").forEach(b=>
+  b.classList.toggle("active",b.dataset.page===name));
+ const page=document.getElementById(name);
+ if(page)page.classList.add("active");
+ if(name==="calendar")renderCalendar();
+ if(name==="leaderboard")loadLeaderboard();
+ if(name==="journal")renderJournal();
+ if(name==="account")refreshAccount();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function initLessons(){
+ const target=document.getElementById("lessons");
+ lessonData.forEach((lesson,index)=>{
+  const card=document.createElement("div");
+  card.className="lesson";
+  const eyebrow=document.createElement("div");
+  eyebrow.className="eyebrow";
+  eyebrow.textContent="LESSON "+String(index+1).padStart(2,"0");
+  const title=document.createElement("h3");
+  title.textContent=lesson[1];
+  const text=document.createElement("p");
+  text.textContent=lesson[2];
+  const button=document.createElement("button");
+  button.className="btn secondary";
+  button.textContent="MARK LESSON COMPLETE";
+  button.onclick=()=>completeChallenge(lesson[0]==="daily_intention"?"learning_lesson_0":lesson[0]);
+  card.append(eyebrow,title,text,button);
+  target.appendChild(card);
+ });
+}
+
+function initDatabase(){
+ if(!window.supabase){
+  document.getElementById("connectionStatus").textContent="Library unavailable";
+  toast("Check your internet connection and reload.");
+  return;
+ }
+ db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+ document.getElementById("connectionStatus").textContent="Connecting…";
+
+ db.auth.onAuthStateChange((event,session)=>{
+  currentUser=session?.user||null;
+  if(currentUser){
+   setTimeout(async()=>{
+    await loadProfile();
+    await loadCompletions();
+    refreshAccount();
+   },0);
+  }else{
+   currentProfile=null;
+   completions=[];
+   challengePoints={};
+   refreshAccount();
+   updateHome();
+  }
+ });
+
+ db.auth.getSession().then(async({data,error})=>{
+  if(error)console.error(error);
+  currentUser=data.session?.user||null;
+  if(currentUser){
+   await loadProfile();
+   await loadCompletions();
+  }
+  document.getElementById("connectionStatus").textContent="Connected";
+  refreshAccount();
+  updateHome();
+ }).catch(()=>{
+  document.getElementById("connectionStatus").textContent="Connection issue";
+ });
+}
+
+async function loadProfile(){
+ if(!currentUser)return;
+ const {data,error}=await db.from("profiles")
+  .select("id,username,leaderboard_public")
+  .eq("id",currentUser.id).maybeSingle();
+ if(error){console.error(error);return}
+ currentProfile=data;
+}
+
+async function loadCompletions(){
+ if(!currentUser)return;
+
+ const [completionResult,catalogResult]=await Promise.all([
+  db.from("challenge_completions")
+   .select("challenge_id,completed_on")
+   .eq("user_id",currentUser.id)
+   .order("completed_on",{ascending:false}).limit(1000),
+  db.from("challenge_catalog").select("challenge_id,points")
+ ]);
+
+ if(completionResult.error){
+  console.error(completionResult.error);
+  toast("Could not load progress.");
+  return;
+ }
+ if(catalogResult.error){
+  console.error(catalogResult.error);
+  toast("Could not load challenge points.");
+  return;
+ }
+
+ completions=completionResult.data||[];
+ challengePoints=Object.fromEntries(
+  (catalogResult.data||[]).map(item=>[item.challenge_id,item.points])
+ );
+ updateHome();
+ renderCalendar();
+}
+
+function updateHome(){
+ const count=completions.length;
+ const points=completions.reduce(
+  (sum,c)=>sum+(Number(challengePoints[c.challenge_id])||0),0
+ );
+
+ document.getElementById("homeCompleted").textContent=count;
+ document.getElementById("homePoints").textContent=points;
+ document.getElementById("dailyMessage").textContent=
+  messages[Math.floor(Date.now()/86400000)%messages.length];
+
+ const done=completions.some(c=>
+  c.challenge_id==="daily_intention"&&c.completed_on===todayKey()
+ );
+
+ const button=document.getElementById("completeTodayBtn");
+ button.disabled=done||!currentUser;
+ button.textContent=done?"TODAY COMPLETED":"MARK TODAY COMPLETE";
+
+ document.getElementById("progressBar").style.width=Math.min(100,count)+"%";
+ document.getElementById("progressText").textContent=
+  count+" recorded challenge completions";
+
+ const intention=localStorage.getItem("reset_intention_"+todayKey());
+ document.getElementById("intentionStatus").textContent=
+  intention?"Saved today: "+intention:"";
+}
+
+function setAuthMode(mode){
+ authMode=mode;
+ document.getElementById("authTitle").textContent=
+  mode==="signup"?"Create your RESET account":"Welcome back";
+ document.getElementById("authSubmit").textContent=
+  mode==="signup"?"CREATE ACCOUNT":"LOG IN";
+ document.getElementById("usernameField").classList.toggle("hidden",mode==="login");
+ document.getElementById("authMessage").textContent=
+  mode==="signup"?"Use a valid email and password. Confirm your email before logging in if requested.":
+  "Enter the email and password connected to your account.";
+}
+
+async function submitAuth(){
+ if(!db){toast("Database is not connected.");return}
+
+ const email=document.getElementById("emailInput").value.trim();
+ const password=document.getElementById("passwordInput").value;
+ const username=document.getElementById("usernameInput").value.trim();
+
+ if(!email||!password){toast("Enter your email and password.");return}
+ if(password.length<8){toast("Password must be at least 8 characters.");return}
+
+ if(authMode==="signup"){
+  if(!/^[a-zA-Z0-9_.-]{3,20}$/.test(username)){
+   toast("Username must be 3–20 characters: letters, numbers, _ . or -");
+   return;
+  }
+
+  const {error}=await db.auth.signUp({
+   email,password,options:{data:{username}}
+  });
+
+  if(error){toast(error.message);return}
+
+  document.getElementById("authMessage").textContent=
+   "Registration submitted. Check your email for the confirmation link. Then return here and log in.";
+  toast("Check your email to confirm your account.");
+ }else{
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error){toast(error.message);return}
+  currentUser=data.user;
+  await loadProfile();
+  await loadCompletions();
+  refreshAccount();
+  toast("Welcome back.");
+ }
+}
+
+async function resetPassword(){
+ if(!db)return;
+ const email=document.getElementById("emailInput").value.trim();
+ if(!email){toast("Enter your email address first.");return}
+ const {error}=await db.auth.resetPasswordForEmail(email);
+ if(error)toast(error.message);
+ else toast("If the account exists, a reset email will arrive.");
+}
+
+function refreshAccount(){
+ const logged=!!currentUser;
+ document.getElementById("authPanel").classList.toggle("hidden",logged);
+ document.getElementById("profilePanel").classList.toggle("hidden",!logged);
+ if(logged){
+  document.getElementById("profileName").textContent=currentProfile?.username||"RESET Member";
+  document.getElementById("profileEmail").textContent=currentUser.email||"";
+  document.getElementById("profileUsername").value=currentProfile?.username||"";
+  document.getElementById("publicToggle").checked=!!currentProfile?.leaderboard_public;
+ }
+}
+
+async function updateUsername(){
+ if(!currentUser)return;
+ const username=document.getElementById("profileUsername").value.trim();
+ if(!/^[a-zA-Z0-9_.-]{3,20}$/.test(username)){
+  toast("Username must be 3–20 valid characters.");return;
+ }
+ const {error}=await db.from("profiles")
+  .update({username}).eq("id",currentUser.id);
+ if(error){toast(error.message);return}
+ await loadProfile();
+ refreshAccount();
+ toast("Username updated.");
+}
+
+async function savePrivacy(){
+ if(!currentUser)return;
+ const isPublic=document.getElementById("publicToggle").checked;
+ const {error}=await db.from("profiles")
+  .update({leaderboard_public:isPublic}).eq("id",currentUser.id);
+ if(error){toast(error.message);return}
+ await loadProfile();
+ refreshAccount();
+ toast(isPublic?"Your profile is public on the leaderboard.":"Your profile is private.");
+}
+
+async function logout(){
+ if(!db)return;
+ const {error}=await db.auth.signOut();
+ if(error){toast(error.message);return}
+ currentUser=null;
+ currentProfile=null;
+ completions=[];
+ challengePoints={};
+ refreshAccount();
+ updateHome();
+ toast("You have logged out.");
+}
+
+async function completeChallenge(challengeId){
+ if(!currentUser){
+  toast("Create an account or log in first.");
+  showPage("account");
+  return;
+ }
+ if(!Object.prototype.hasOwnProperty.call(challengePoints,challengeId)){
+  toast("This challenge is not in the database catalogue yet.");
+  return;
+ }
+
+ const date=todayKey();
+ const already=completions.some(c=>
+  c.challenge_id===challengeId&&c.completed_on===date
+ );
+ if(already){toast("Already recorded for today.");return}
+
+ const {error}=await db.from("challenge_completions").insert({
+  user_id:currentUser.id,
+  challenge_id:challengeId,
+  completed_on:date
+ });
+
+ if(error){
+  if(error.code==="23505")toast("Already completed today.");
+  else toast(error.message);
+  return;
+ }
+ await loadCompletions();
+ toast("Mission recorded. Keep building.");
+}
+
+function saveIntention(){
+ const value=document.getElementById("intentionInput").value.trim();
+ if(!value){toast("Write an intention first.");return}
+ localStorage.setItem("reset_intention_"+todayKey(),value);
+ updateHome();
+ toast("Today's intention saved on this device.");
+}
+
+function changeMonth(amount){
+ calendarDate.setMonth(calendarDate.getMonth()+amount);
+ renderCalendar();
+}
+
+function renderCalendar(){
+ const grid=document.getElementById("calendarGrid");
+ if(!grid)return;
+ const year=calendarDate.getFullYear();
+ const month=calendarDate.getMonth();
+
+ document.getElementById("calendarTitle").textContent=
+  calendarDate.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+ grid.innerHTML="";
+
+ ["S","M","T","W","T","F","S"].forEach(d=>{
+  const el=document.createElement("div");
+  el.className="dayname";
+  el.textContent=d;
+  grid.appendChild(el);
+ });
+
+ const first=new Date(year,month,1).getDay();
+ const days=new Date(year,month+1,0).getDate();
+
+ for(let i=0;i<first;i++){
+  const blank=document.createElement("div");
+  blank.className="day empty";
+  grid.appendChild(blank);
+ }
+
+ for(let d=1;d<=days;d++){
+  const date=new Date(year,month,d);
+  const key=todayKey(date);
+  const done=completions.some(c=>c.completed_on===key);
+  const el=document.createElement("button");
+
+  el.className="day"+(done?" done":"")+
+   (key===todayKey()?" today":"")+
+   (isEventDate(date)?" event":"");
+
+  el.textContent=d;
+  if(done){
+   const small=document.createElement("small");
+   small.textContent="DONE";
+   el.appendChild(small);
+  }
+  el.onclick=()=>selectCalendarDate(date);
+  grid.appendChild(el);
+ }
+
+ const count=completions.length;
+ document.getElementById("progressBar").style.width=Math.min(100,count)+"%";
+ document.getElementById("progressText").textContent=
+  count+" recorded challenge completions";
+}
+
+function selectCalendarDate(date){
+ const key=todayKey(date);
+ const done=completions.filter(c=>c.completed_on===key);
+ document.getElementById("selectedDateTitle").textContent=
+  date.toLocaleDateString("en-US",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+ document.getElementById("selectedDateInfo").textContent=
+  done.length?done.length+" completion(s) recorded.":"No completions recorded for this date.";
+}
+
+function easterDate(year){
+ const a=year%19,b=Math.floor(year/100),c=year%100;
+ const d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25);
+ const g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30;
+ const i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7;
+ const m=Math.floor((a+11*h+22*l)/451);
+ const month=Math.floor((h+l-7*m+114)/31);
+ const day=((h+l-7*m+114)%31)+1;
+ return new Date(year,month-1,day);
+}
+
+function seasonalEvents(year){
+ const easter=easterDate(year);
+ const goodFriday=new Date(easter);
+ goodFriday.setDate(easter.getDate()-2);
+ const familyDay=new Date(easter);
+ familyDay.setDate(easter.getDate()+1);
+
+ return [
+  {name:"New Year Reset",date:new Date(year,0,1),end:new Date(year,0,7),text:"Set realistic priorities and build useful routines."},
+  {name:"Valentine's Kindness",date:new Date(year,1,14),end:new Date(year,1,14),text:"Practise kindness, respect and healthy relationships."},
+  {name:"Human Rights Day",date:new Date(year,2,21),end:new Date(year,2,21),text:"Reflect on dignity, equality and respect."},
+  {name:"Easter Reflection",date:goodFriday,end:familyDay,text:"Make space for reflection, gratitude and meaningful connections."},
+  {name:"Freedom Day",date:new Date(year,3,27),end:new Date(year,3,27),text:"Reflect on freedom, responsibility and opportunity."},
+  {name:"Workers' Day",date:new Date(year,4,1),end:new Date(year,4,1),text:"Recognise effort, responsibility and contribution."},
+  {name:"Youth Month",date:new Date(year,5,1),end:new Date(year,5,30),text:"Learn, create and invest in your future."},
+  {name:"Youth Day",date:new Date(year,5,16),end:new Date(year,5,16),text:"Celebrate the potential and responsibility of young people."},
+  {name:"Mandela Day",date:new Date(year,6,18),end:new Date(year,6,18),text:"Take one constructive action for your community."},
+  {name:"Women's Month",date:new Date(year,7,1),end:new Date(year,7,31),text:"Recognise women's achievements and promote equality."},
+  {name:"Heritage Month",date:new Date(year,8,1),end:new Date(year,8,30),text:"Explore culture, history and the stories that shape communities."},
+  {name:"Heritage Day",date:new Date(year,8,24),end:new Date(year,8,24),text:"Celebrate South Africa's diverse heritage."},
+  {name:"Halloween Focus",date:new Date(year,9,25),end:new Date(year,9,31),text:"Enjoy the season responsibly and protect your focus."},
+  {name:"NNN — November Discipline Challenge",date:new Date(year,10,1),end:new Date(year,10,30),text:"A voluntary 30-day challenge focused on discipline, digital boundaries and understanding habits."},
+  {name:"World AIDS Day Awareness",date:new Date(year,11,1),end:new Date(year,11,1),text:"Promote health awareness, respect and reliable information."},
+  {name:"Christmas & Giving",date:new Date(year,11,15),end:new Date(year,11,26),text:"Practise gratitude, generosity and meaningful connection."},
+  {name:"Year-End Review",date:new Date(year,11,27),end:new Date(year,11,31),text:"Review what you learned and choose priorities for the next year."}
+ ];
+}
+
+function isEventDate(date){
+ return seasonalEvents(date.getFullYear()).some(e=>date>=e.date&&date<=e.end);
+}
+
+function updateEvents(){
+ const now=new Date();
+ const events=seasonalEvents(now.getFullYear());
+ const active=events.find(e=>now>=e.date&&now<=e.end);
+ const upcoming=events.filter(e=>e.date>now).sort((a,b)=>a.date-b.date)[0];
+ const current=active||upcoming||seasonalEvents(now.getFullYear()+1)[0];
+
+ document.getElementById("homeEventTitle").textContent=
+  active?active.name:"UP NEXT: "+current.name;
+ document.getElementById("homeEventText").textContent=current.text;
+ document.getElementById("eventTitle").textContent=current.name;
+ document.getElementById("eventDescription").textContent=current.text;
+ document.getElementById("eventDates").textContent=
+  current.date.toLocaleDateString("en-US",{month:"long",day:"numeric"})+
+  " – "+current.end.toLocaleDateString("en-US",{month:"long",day:"numeric"});
+ document.getElementById("eventStatus").textContent=
+  active?"ACTIVE NOW":"UPCOMING";
+
+ const list=document.getElementById("eventList");
+ list.innerHTML="";
+ [...events,...seasonalEvents(now.getFullYear()+1).slice(0,2)].forEach(e=>{
+  const div=document.createElement("div");
+  div.className="lesson";
+  const title=document.createElement("strong");
+  title.textContent=e.name;
+  const date=document.createElement("p");
+  date.textContent=e.date.toLocaleDateString("en-US",{month:"short",day:"numeric"})+
+   " – "+e.end.toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  const desc=document.createElement("p");
+  desc.textContent=e.text;
+  div.append(title,date,desc);
+  list.appendChild(div);
+ });
+}
+
+async function loadLeaderboard(){
+ const target=document.getElementById("leaderboardContent");
+ if(!currentUser){
+  target.textContent="Log in to view the leaderboard.";
+  return;
+ }
+ target.textContent="Loading rankings…";
+
+ const {data,error}=await db.from("public_leaderboard")
+  .select("username,completed_challenges,total_points")
+  .order("total_points",{ascending:false}).limit(50);
+
+ if(error){
+  target.textContent="Could not load leaderboard: "+error.message;
+  return;
+ }
+ if(!data||!data.length){
+  target.textContent="No public members yet. You can be the first to opt in.";
+  return;
+ }
+
+ const table=document.createElement("table");
+ const head=document.createElement("tr");
+ ["Rank","Username","Missions","Points"].forEach(t=>{
+  const th=document.createElement("th");
+  th.textContent=t;
+  head.appendChild(th);
+ });
+ table.appendChild(head);
+
+ data.forEach((member,index)=>{
+  const tr=document.createElement("tr");
+  [String(index+1),member.username,
+   String(member.completed_challenges),String(member.total_points)
+  ].forEach((value,i)=>{
+   const td=document.createElement("td");
+   td.textContent=value;
+   if(i===0)td.className="rank";
+   tr.appendChild(td);
+  });
+  table.appendChild(tr);
+ });
+ target.innerHTML="";
+ target.appendChild(table);
+}
+
+function journalKey(){
+ return "RESET_PRIVATE_JOURNAL_"+(currentUser?.id||"local");
+}
+
+function saveJournal(){
+ const value=document.getElementById("journalInput").value.trim();
+ if(!value){toast("Write something first.");return}
+ const entries=JSON.parse(localStorage.getItem(journalKey())||"[]");
+ entries.unshift({date:new Date().toISOString(),text:value});
+ localStorage.setItem(journalKey(),JSON.stringify(entries));
+ document.getElementById("journalInput").value="";
+ document.getElementById("journalStatus").textContent="Saved on this device.";
+ renderJournal();
+ toast("Private journal entry saved.");
+}
+
+function renderJournal(){
+ const target=document.getElementById("journalEntries");
+ if(!target)return;
+ const entries=JSON.parse(localStorage.getItem(journalKey())||"[]");
+ target.innerHTML="";
+ if(!entries.length){
+  target.textContent="No entries saved on this device yet.";
+  return;
+ }
+ entries.forEach((entry,index)=>{
+  const card=document.createElement("div");
+  card.className="lesson";
+  const date=document.createElement("div");
+  date.className="small";
+  date.textContent=new Date(entry.date).toLocaleString();
+  const text=document.createElement("p");
+  text.textContent=entry.text;
+  const remove=document.createElement("button");
+  remove.className="btn secondary";
+  remove.textContent="DELETE ENTRY";
+  remove.onclick=()=>{
+   const updated=JSON.parse(localStorage.getItem(journalKey())||"[]");
+   updated.splice(index,1);
+   localStorage.setItem(journalKey(),JSON.stringify(updated));
+   renderJournal();
+  };
+  card.append(date,text,remove);
+  target.appendChild(card);
+ });
+}
+
+function saveRoomReflection(){
+ const feeling=document.getElementById("roomFeeling").value.trim();
+ const action=document.getElementById("roomAction").value.trim();
+ if(!feeling&&!action){toast("Write a reflection or next action first.");return}
+ const key="RESET_ROOM_"+(currentUser?.id||"local");
+ localStorage.setItem(key,JSON.stringify({
+  date:new Date().toISOString(),feeling,action
+ }));
+ toast("Reflection saved privately on this device.");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+ initLessons();
+ updateEvents();
+ initDatabase();
+ setAuthMode("signup");
+ renderCalendar();
+});
+</script>
+</body>
+</html>
