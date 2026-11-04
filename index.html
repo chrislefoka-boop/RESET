@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> <link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#090909">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090909">
@@ -991,11 +992,7 @@ async function init(){
   setInterval(updateCountdowns,60000);
 }
 
-document.addEventListener("DOMContentLoaded",init);
-</script>
-</body>
-</html>
-<script>
+document.addEventListener("DOMContentLoaded",init); <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js")
@@ -1003,3 +1000,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+</body>
+</html>
+<script>
