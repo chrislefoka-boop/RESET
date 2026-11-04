@@ -1,19 +1,20 @@
 {
-  "name": "RESET - Your Next Chapter",
+  "id": "./",
+  "name": "RESET | Discipline Over Comfort",
   "short_name": "RESET",
-  "description": "Discipline Over Comfort. Your Next Chapter Starts Here.",
+  "description": "Build better habits, protect your focus and move forward.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#080808",
-  "theme_color": "#e50920",
+  "background_color": "#090909",
+  "theme_color": "#090909",
   "icons": [
     {
       "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
