@@ -992,13 +992,22 @@ async function init(){
   setInterval(updateCountdowns,60000);
 }
 
-document.addEventListener("DOMContentLoaded",init); <script>
+document.addEventListener("DOMContentLoaded", init);
+</script>
+
+<!-- SERVICE WORKER: OFFLINE APP SUPPORT -->
+<script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js")
-      .catch(error => console.error("RESET offline setup:", error));
+      .then(() => console.log("RESET offline support ready"))
+      .catch(error => {
+        console.error("RESET offline setup:", error);
+      });
   });
 }
+</script>
+
 </body>
 </html>
-<script>
+
